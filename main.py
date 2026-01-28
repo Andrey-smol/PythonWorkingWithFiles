@@ -99,4 +99,3 @@ def read_file_recipes_book():
 
 
 show_cook_book(read_file_recipes_book())
-
