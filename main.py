@@ -98,4 +98,65 @@ def read_file_recipes_book():
     return cook_book
 
 
-show_cook_book(read_file_recipes_book())
+# show_cook_book(read_file_recipes_book())
+
+"""
+Задача №2
+Нужно написать функцию, которая на вход принимает список блюд из cook_book и количество персон для кого мы будем готовить
+На выходе мы должны получить словарь с названием ингредиентов и его количества для блюда. Например, для такого вызова
+
+get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
+
+Должен быть следующий результат:
+
+{
+  'Картофель': {'measure': 'кг', 'quantity': 2},
+  'Молоко': {'measure': 'мл', 'quantity': 200},
+  'Помидор': {'measure': 'шт', 'quantity': 4},
+  'Сыр гауда': {'measure': 'г', 'quantity': 200},
+  'Яйцо': {'measure': 'шт', 'quantity': 4},
+  'Чеснок': {'measure': 'зубч', 'quantity': 6}
+}
+
+"""
+
+
+def get_shop_list_by_dishes(dishes, person_count):
+    '''
+
+    :param dishes - list of dishes from the recipe book:
+    :param person_count:
+    :return a dictionary with the name of the ingredients and their quantities for the dish:
+    '''
+    cook_book = read_file_recipes_book()
+    keys = list(cook_book.keys())
+    result = {}
+    for dish in dishes:
+        if dish in keys:
+            list_ingredient = cook_book[dish]
+            for ingredient in list_ingredient:
+                key = ingredient['ingredient_name']
+                value = {'measure': ingredient['measure'], 'quantity': ingredient['quantity'] * person_count}
+                if result.get(key, 0) == 0:
+                    result[key] = value
+                else:
+                    quantity = result[key]['quantity'] + value['quantity']
+                    result[key]['quantity'] = quantity
+
+    return result
+
+
+def show_ingredients(dict_ingredients):
+    print('{')
+    items = []
+    for key, value in dict_ingredients.items():
+        items.append(f"  '{key}': {value}")
+
+    output = ",\n".join(items)
+    print(output)
+    print('}')
+
+
+show_ingredients(get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2))
+
+show_ingredients(get_shop_list_by_dishes(['Фахитос', 'Омлет'], 2))
