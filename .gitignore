@@ -5,6 +5,7 @@ HELP.md
 .idea
 .vent
 WorkingWithFiles.iml
+final.txt
 
 ### VS Code ###
 .vscode/
