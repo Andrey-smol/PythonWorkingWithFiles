@@ -70,7 +70,12 @@ def combining_files(dict_files):
             file_name = os.path.basename(path_)
             with open(path_, encoding='utf-8') as f:
                 final_file.writelines([file_name + '\n', str(lines) + '\n'])
-                final_file.write(f.read() + '\n') if i < number_files else final_file.write(f.read())
+                for line in f:
+                    final_file.write(line)
+                if i < number_files:
+                    final_file.write('\n')
+                # final_file.write(f.read() + '\n') if i < number_files else final_file.write(f.read())
 
 
 combining_files(get_dict_files("resources"))
+
